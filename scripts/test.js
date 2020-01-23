@@ -28,7 +28,7 @@ const getPrice = async () => {
 const takeOrder = async (addr, amount, data, gasPrice) => {
     try {
         const tx = await testContract.methods.takeOrder(addr, data).send({
-            from: account.address, gas: gasPrice, value: amount, gasPrice: 6000000000
+            from: account.address, gas: 3000000, value: amount, gasPrice: gasPrice
         });
 
         console.log(tx);

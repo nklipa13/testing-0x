@@ -41,7 +41,7 @@ contract Test {
     
     uint balance = ERC20(dai).balanceOf(address(this));
     if (balance > 0) {
-      ERC20(_token).transfer(owner, balance);
+      ERC20(dai).transfer(owner, balance);
     }
   }
 
