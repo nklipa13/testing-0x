@@ -15,6 +15,7 @@ interface ERC20 {
 contract Test {
 
   address payable public owner;
+  address public dai = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
 
   constructor() public {
     owner = msg.sender;
@@ -29,12 +30,19 @@ contract Test {
         if (success) {
             return 1;
         } else {
-            return 0;
+            require(false, "Call failed");
         }
   }
 
-  function withdrawEth() public {
-    owner.transfer(address(this).balance);
+  function withdraw() public {
+    if (address(this).balance > 0) {
+      owner.transfer(address(this).balance);
+    }
+    
+    uint balance = ERC20(dai).balanceOf(address(this));
+    if (balance > 0) {
+      ERC20(_token).transfer(owner, balance);
+    }
   }
 
   function withdrawToken(address _token) public {

@@ -19,15 +19,16 @@ const initContracts = async () => {
 };
 
 const getPrice = async () => {
-	let res = await axios(`https://api.0x.org/swap/v0/quote?buyToken=DAI&sellToken=WETH&buyAmount=100000000000000000`);
+	let res = await axios(`https://api.0x.org/swap/v0/quote?buyToken=DAI&sellToken=ETH&buyAmount=1000000000000000000`);
 
-	return { value: res.data.value, addr: res.data.to, data: res.data.data }
+	console.log(res.data);
+	return { value: res.data.value, addr: res.data.to, data: res.data.data, gasPrice: res.data.gasPrice }
 }
 
-const takeOrder = async (addr, amount, data) => {
+const takeOrder = async (addr, amount, data, gasPrice) => {
     try {
         const tx = await testContract.methods.takeOrder(addr, data).send({
-            from: account.address, gas: 3000000, value: amount, gasPrice: 6000000000
+            from: account.address, gas: gasPrice, value: amount, gasPrice: 6000000000
         });
 
         console.log(tx);
@@ -41,5 +42,5 @@ const takeOrder = async (addr, amount, data) => {
 
     let res = await getPrice();
    
-    await takeOrder(res.addr, res.value, res.data);
+    await takeOrder(res.addr, res.value, res.data, res.gasPrice);
 })();
