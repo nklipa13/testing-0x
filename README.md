@@ -1,7 +1,7 @@
 Testing 0x protocol
 
-Install:
-`npm install`
+Install:   
+`npm install`   
 `vim .env`
 
 .env file needs to have:
@@ -13,7 +13,7 @@ ETHERSCAN_API_KEY=
 PRIV_KEY=
 ```
 
-`truffle migrate --network mainnet`
-`truffle run verify Test --network mainnet` 
+`truffle migrate --network mainnet`     
+`truffle run verify Test --network mainnet`    
 
 `node script/test.js`
